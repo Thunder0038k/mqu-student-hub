@@ -2,16 +2,51 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { CheckCircle, Mail } from "lucide-react"
+import { supabase } from "@/integrations/supabase/client"
+import { useToast } from "@/hooks/use-toast"
 
 export function EmailCapture() {
   const [email, setEmail] = useState("")
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const { toast } = useToast()
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // For now, just show success state
-    setIsSubmitted(true)
-    console.log("Email submitted:", email)
+    setIsLoading(true)
+
+    try {
+      const { error } = await supabase
+        .from('email_signups')
+        .insert([
+          {
+            email: email.trim(),
+            source: 'email-capture'
+          }
+        ])
+
+      if (error) {
+        toast({
+          title: "Error",
+          description: "Failed to join waitlist. Please try again.",
+          variant: "destructive"
+        })
+      } else {
+        setIsSubmitted(true)
+        toast({
+          title: "Success!",
+          description: "You've been added to the waitlist."
+        })
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Something went wrong. Please try again.",
+        variant: "destructive"
+      })
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -48,8 +83,13 @@ export function EmailCapture() {
                     required
                     className="flex-1 shadow-card"
                   />
-                  <Button type="submit" size="lg" className="shadow-elegant px-8">
-                    Get Early Access
+                  <Button 
+                    type="submit" 
+                    size="lg" 
+                    disabled={isLoading}
+                    className="shadow-elegant px-8 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isLoading ? "Adding..." : "Get Early Access"}
                   </Button>
                 </form>
               ) : (

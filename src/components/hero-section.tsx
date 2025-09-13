@@ -3,17 +3,53 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { CheckCircle, BookOpen, Users } from "lucide-react"
+import { supabase } from "@/integrations/supabase/client"
+import { useToast } from "@/hooks/use-toast"
 
 export function HeroSection() {
   const [email, setEmail] = useState("")
   const [name, setName] = useState("")
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const { toast } = useToast()
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // For now, just show success state
-    setIsSubmitted(true)
-    console.log("Email submitted:", { name, email })
+    setIsLoading(true)
+
+    try {
+      const { error } = await supabase
+        .from('email_signups')
+        .insert([
+          {
+            name: name.trim(),
+            email: email.trim(),
+            source: 'hero'
+          }
+        ])
+
+      if (error) {
+        toast({
+          title: "Error",
+          description: "Failed to join waitlist. Please try again.",
+          variant: "destructive"
+        })
+      } else {
+        setIsSubmitted(true)
+        toast({
+          title: "Success!",
+          description: "You've been added to the waitlist."
+        })
+      }
+    } catch (error) {
+      toast({
+        title: "Error", 
+        description: "Something went wrong. Please try again.",
+        variant: "destructive"
+      })
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -84,8 +120,13 @@ export function HeroSection() {
                       className="shadow-card"
                     />
                   </div>
-                  <Button type="submit" size="lg" className="w-full shadow-elegant">
-                    Join the Waitlist
+                  <Button 
+                    type="submit" 
+                    size="lg" 
+                    disabled={isLoading}
+                    className="w-full shadow-elegant disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isLoading ? "Joining..." : "Join the Waitlist"}
                   </Button>
                 </form>
               ) : (
