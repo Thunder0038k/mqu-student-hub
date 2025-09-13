@@ -47,6 +47,12 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        macquarie: {
+          green: "hsl(var(--macquarie-green))",
+          teal: "hsl(var(--macquarie-teal))",
+          dark: "hsl(var(--macquarie-dark))",
+          light: "hsl(var(--macquarie-light))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
