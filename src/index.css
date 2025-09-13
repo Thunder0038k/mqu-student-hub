@@ -17,41 +17,41 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 215 28% 17%;
 
-    /* Macquarie Green as primary */
-    --primary: 145 100% 32%;
+    /* Macquarie Deep Red as primary */
+    --primary: 352 54% 30%;
     --primary-foreground: 0 0% 98%;
 
-    --secondary: 145 25% 95%;
-    --secondary-foreground: 145 100% 25%;
+    --secondary: 352 25% 95%;
+    --secondary-foreground: 352 54% 25%;
 
-    --muted: 145 20% 96%;
+    --muted: 352 20% 96%;
     --muted-foreground: 215 16% 47%;
 
-    --accent: 175 70% 50%;
+    --accent: 352 100% 42%;
     --accent-foreground: 0 0% 98%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 145 25% 88%;
-    --input: 145 25% 88%;
-    --ring: 145 100% 32%;
+    --border: 352 25% 88%;
+    --input: 352 25% 88%;
+    --ring: 352 54% 30%;
 
     --radius: 0.75rem;
 
-    /* Custom MacTrack tokens */
-    --macquarie-green: 145 100% 32%;
-    --macquarie-teal: 175 70% 50%;
+    /* Custom Macquarie tokens */
+    --macquarie-deep-red: 352 54% 30%;
+    --macquarie-bright-red: 352 100% 42%;
     --macquarie-dark: 215 28% 17%;
-    --macquarie-light: 145 25% 95%;
+    --macquarie-light: 352 25% 95%;
     
     /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(var(--macquarie-green)), hsl(var(--macquarie-teal)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--macquarie-deep-red)), hsl(var(--macquarie-bright-red)));
     --gradient-card: linear-gradient(135deg, hsl(var(--card)) 0%, hsl(var(--macquarie-light)) 100%);
     
     /* Shadows */
-    --shadow-elegant: 0 10px 40px -10px hsl(var(--macquarie-green) / 0.2);
-    --shadow-card: 0 4px 20px -2px hsl(var(--macquarie-green) / 0.1);
+    --shadow-elegant: 0 10px 40px -10px hsl(var(--macquarie-deep-red) / 0.2);
+    --shadow-card: 0 4px 20px -2px hsl(var(--macquarie-deep-red) / 0.1);
 
     --sidebar-background: 0 0% 98%;
 
@@ -80,16 +80,16 @@ All colors MUST be HSL.
     --popover: 215 28% 15%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 145 85% 45%;
+    --primary: 352 70% 55%;
     --primary-foreground: 215 28% 12%;
 
     --secondary: 215 25% 20%;
-    --secondary-foreground: 145 85% 45%;
+    --secondary-foreground: 352 70% 55%;
 
     --muted: 215 25% 18%;
     --muted-foreground: 215 16% 65%;
 
-    --accent: 175 60% 55%;
+    --accent: 352 85% 60%;
     --accent-foreground: 215 28% 12%;
 
     --destructive: 0 75% 55%;
@@ -97,21 +97,21 @@ All colors MUST be HSL.
 
     --border: 215 25% 22%;
     --input: 215 25% 22%;
-    --ring: 145 85% 45%;
+    --ring: 352 70% 55%;
 
     /* Dark mode custom tokens */
-    --macquarie-green: 145 85% 45%;
-    --macquarie-teal: 175 60% 55%;
+    --macquarie-deep-red: 352 70% 55%;
+    --macquarie-bright-red: 352 85% 60%;
     --macquarie-dark: 215 28% 12%;
     --macquarie-light: 215 25% 20%;
     
     /* Dark gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(var(--macquarie-green)), hsl(var(--macquarie-teal)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--macquarie-deep-red)), hsl(var(--macquarie-bright-red)));
     --gradient-card: linear-gradient(135deg, hsl(var(--card)) 0%, hsl(var(--macquarie-light)) 100%);
     
     /* Dark shadows */
-    --shadow-elegant: 0 10px 40px -10px hsl(var(--macquarie-green) / 0.3);
-    --shadow-card: 0 4px 20px -2px hsl(var(--macquarie-green) / 0.2);
+    --shadow-elegant: 0 10px 40px -10px hsl(var(--macquarie-deep-red) / 0.3);
+    --shadow-card: 0 4px 20px -2px hsl(var(--macquarie-deep-red) / 0.2);
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;

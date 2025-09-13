@@ -1,4 +1,5 @@
 import { Mail, Github, Twitter } from "lucide-react"
+import macquarieLogo from "@/assets/macquarie-logo.png"
 
 export function Footer() {
   return (
@@ -7,10 +8,8 @@ export function Footer() {
         <div className="grid md:grid-cols-3 gap-8">
           {/* Brand */}
           <div className="space-y-4">
-            <div className="flex items-center space-x-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground font-bold text-lg">
-                M
-              </div>
+            <div className="flex items-center space-x-3">
+              <img src={macquarieLogo} alt="Macquarie University" className="h-8 w-8" />
               <span className="text-xl font-bold">MacTrack</span>
             </div>
             <p className="text-muted-foreground max-w-xs">
