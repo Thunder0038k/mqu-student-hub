@@ -43,7 +43,7 @@ export function HeroSection() {
       }
     } catch (error) {
       toast({
-        title: "Error", 
+        title: "Error",
         description: "Something went wrong. Please try again.",
         variant: "destructive"
       })
@@ -54,23 +54,23 @@ export function HeroSection() {
 
   return (
     <section className="relative py-20 md:py-32 overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0 gradient-hero opacity-5"></div>
-      <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl"></div>
+      {/* Background Elements: push behind with negative z */}
+      <div className="absolute inset-0 gradient-hero opacity-5 -z-10"></div>
+      <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl -z-10"></div>
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl -z-10"></div>
       
       <div className="container relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
           <div className="space-y-8 animate-fade-in-up">
             <div className="space-y-4">
-              <h1 className="text-4xl md:text-6xl font-bold leading-tight">
+              {/* Headline elevated above illustration with z-20 */}
+              <h1 className="relative z-20 text-4xl md:text-6xl font-bold leading-tight break-words">
                 MacTrack –{" "}
-                <span className="gradient-hero bg-clip-text text-transparent">
-                  {/* 🔹 Changed text here */}
-                  All-in-One Student Hub
+                <span className="inline-block gradient-hero bg-clip-text text-transparent whitespace-normal">
+                  Your All-in-One
                 </span>{" "}
-                Dashboard
+                Student Dashboard
               </h1>
               <p className="text-xl text-muted-foreground max-w-xl">
                 Stay on top of assignments, classes, and grades at Macquarie University. 
@@ -146,8 +146,8 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* Illustration */}
-          <div className="relative animate-fade-in">
+          {/* Illustration - keep it behind the headline but above backgrounds */}
+          <div className="relative z-10 animate-fade-in">
             <div className="bg-gradient-card rounded-2xl p-8 shadow-elegant">
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
@@ -184,7 +184,7 @@ export function HeroSection() {
             </div>
           </div>
         </div>
-      </div>
+      </div> 
     </section>
   )
 }
