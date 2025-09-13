@@ -67,9 +67,10 @@ export function HeroSection() {
               <h1 className="text-4xl md:text-6xl font-bold leading-tight">
                 MacTrack –{" "}
                 <span className="gradient-hero bg-clip-text text-transparent">
-                  Your All-in-One
+                  {/* 🔹 Changed text here */}
+                  All-in-One Student Hub
                 </span>{" "}
-                Student Dashboard
+                Dashboard
               </h1>
               <p className="text-xl text-muted-foreground max-w-xl">
                 Stay on top of assignments, classes, and grades at Macquarie University. 
