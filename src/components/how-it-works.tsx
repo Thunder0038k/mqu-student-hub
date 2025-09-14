@@ -28,7 +28,7 @@ export function HowItWorks() {
         <div className="text-center space-y-4 mb-16 animate-fade-in-up">
           <h2 className="text-3xl md:text-4xl font-bold">
             How MacTrack{" "}
-            <span className="gradient-hero bg-clip-text text-transparent">
+            <span className="text-red-600 font-bold">
               works for you
             </span>
           </h2>
