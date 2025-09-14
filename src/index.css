@@ -45,8 +45,7 @@ All colors MUST be HSL.
     --macquarie-dark: 215 28% 17%;
     --macquarie-light: 352 25% 95%;
     
-    /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(var(--macquarie-deep-red)), hsl(var(--macquarie-bright-red)));
+    /* Gradients - REMOVED gradient-hero */
     --gradient-card: linear-gradient(135deg, hsl(var(--card)) 0%, hsl(var(--macquarie-light)) 100%);
     
     /* Shadows */
@@ -105,8 +104,7 @@ All colors MUST be HSL.
     --macquarie-dark: 215 28% 12%;
     --macquarie-light: 215 25% 20%;
     
-    /* Dark gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(var(--macquarie-deep-red)), hsl(var(--macquarie-bright-red)));
+    /* Dark gradients - REMOVED gradient-hero */
     --gradient-card: linear-gradient(135deg, hsl(var(--card)) 0%, hsl(var(--macquarie-light)) 100%);
     
     /* Dark shadows */
@@ -134,9 +132,7 @@ All colors MUST be HSL.
 }
 
 @layer utilities {
-  .gradient-hero {
-     background: none !important;
-  }
+  /* COMPLETELY REMOVED .gradient-hero class */
   
   .gradient-card {
     background: var(--gradient-card);
