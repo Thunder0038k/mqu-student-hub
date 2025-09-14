@@ -5,7 +5,6 @@ import { Label } from "@/components/ui/label"
 import { CheckCircle, BookOpen, Users } from "lucide-react"
 import { supabase } from "@/integrations/supabase/client"
 import { useToast } from "@/hooks/use-toast"
-import os
 export function HeroSection() {
   const [email, setEmail] = useState("")
   const [name, setName] = useState("")
