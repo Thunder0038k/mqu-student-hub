@@ -93,7 +93,7 @@ export function EmailCapture() {
               </div>
               <h2 className="text-3xl md:text-4xl font-bold">
                 Want early access to{" "}
-                <span className="gradient-hero bg-clip-text text-transparent">
+                <span className="text-red-600 font-bold">
                   MacTrack?
                 </span>
               </h2>
