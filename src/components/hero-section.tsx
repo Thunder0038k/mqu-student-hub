@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label"
 import { CheckCircle, BookOpen, Users } from "lucide-react"
 import { supabase } from "@/integrations/supabase/client"
 import { useToast } from "@/hooks/use-toast"
+
 export function HeroSection() {
   const [email, setEmail] = useState("")
   const [name, setName] = useState("")
@@ -85,7 +86,7 @@ export function HeroSection() {
   }
 
   return (
-    <section className="relative py-20 md:py-32 overflow-hidden">
+    <section className="relative py-20 md:py-32 overflow-hidden" style={{background: 'transparent'}}>
       {/* Background Elements: REMOVED the problematic gradient-hero class */}
       <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl -z-10"></div>
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl -z-10"></div>
@@ -98,7 +99,7 @@ export function HeroSection() {
               {/* Headline elevated above everything */}
               <h1 className="relative z-50 text-4xl md:text-6xl font-bold leading-tight break-words">
                 <span className="relative z-50">MacTrack –{" "}</span>
-                <span className="relative z-50 bg-gradient-to-r from-[hsl(352,54%,30%)] to-[hsl(352,100%,42%)] bg-clip-text text-transparent">
+                <span className="relative z-50 bg-gradient-to-r from-red-700 to-red-500 bg-clip-text text-transparent">
                   Your All-in-One
                 </span>{" "}
                 <span className="relative z-50">Student Dashboard</span>
@@ -223,3 +224,4 @@ export function HeroSection() {
       </div> 
     </section>
   )
+}
