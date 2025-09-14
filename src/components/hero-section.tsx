@@ -95,55 +95,58 @@ export function HeroSection() {
       <div className="container relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Content - ensure all text is above backgrounds */}
-          <div className="relative z-30 space-y-8 animate-fade-in-up">
+          <div className="relative z-50 space-y-8 animate-fade-in-up">
             <div className="space-y-4">
               {/* Headline elevated above everything */}
-              <h1 className="relative z-40 text-4xl md:text-6xl font-bold leading-tight break-words">
-                MacTrack –{" "}
+              <h1 className="relative z-50 text-4xl md:text-6xl font-bold leading-tight break-words">
+                <span className="relative z-50">MacTrack –{" "}</span>
                 <span className="relative z-50 bg-gradient-to-r from-[hsl(352,54%,30%)] to-[hsl(352,100%,42%)] bg-clip-text text-transparent">
                   Your All-in-One
                 </span>{" "}
-                Student Dashboard
+                <span className="relative z-50">Student Dashboard</span>
               </h1>
-              <p className="relative z-30 text-xl text-muted-foreground max-w-xl">
-                Stay on top of assignments, classes, and grades at Macquarie University. 
-                The smartest way to manage your student life.
+              <p className="relative z-50 text-xl text-muted-foreground max-w-xl">
+                <span className="relative z-50">Stay on top of assignments, classes, and grades at </span>
+                <span className="relative z-50 font-semibold">Macquarie University</span>
+                <span className="relative z-50">. The smartest way to </span>
+                <span className="relative z-50 font-semibold">manage your student life</span>
+                <span className="relative z-50">.</span>
               </p>
             </div>
 
             {/* Quick Features - also elevated */}
-            <div className="relative z-30 flex flex-wrap gap-4">
-              <div className="flex items-center gap-2 text-sm bg-secondary/50 px-3 py-2 rounded-full">
+            <div className="relative z-50 flex flex-wrap gap-4">
+              <div className="relative z-50 flex items-center gap-2 text-sm bg-secondary/50 px-3 py-2 rounded-full">
                 <CheckCircle className="h-4 w-4 text-primary" />
-                Never miss deadlines
+                <span className="relative z-50">Never miss deadlines</span>
               </div>
-              <div className="flex items-center gap-2 text-sm bg-secondary/50 px-3 py-2 rounded-full">
+              <div className="relative z-50 flex items-center gap-2 text-sm bg-secondary/50 px-3 py-2 rounded-full">
                 <BookOpen className="h-4 w-4 text-primary" />
-                Track your grades
+                <span className="relative z-50">Track your grades</span>
               </div>
-              <div className="flex items-center gap-2 text-sm bg-secondary/50 px-3 py-2 rounded-full">
+              <div className="relative z-50 flex items-center gap-2 text-sm bg-secondary/50 px-3 py-2 rounded-full">
                 <Users className="h-4 w-4 text-primary" />
-                Built for MQ students
+                <span className="relative z-50">Built for MQ students</span>
               </div>
             </div>
 
             {/* Email Form - elevated above backgrounds */}
-            <div className="relative z-30 max-w-md">
+            <div className="relative z-50 max-w-md">
               {!isSubmitted ? (
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="name" className="relative z-30">Name</Label>
+                    <Label htmlFor="name" className="relative z-50">Name</Label>
                     <Input
                       id="name"
                       placeholder="Your name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       required
-                      className="relative z-30 shadow-card"
+                      className="relative z-50 shadow-card"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="email" className="relative z-30">Email</Label>
+                    <Label htmlFor="email" className="relative z-50">Email</Label>
                     <Input
                       id="email"
                       type="email"
@@ -151,25 +154,27 @@ export function HeroSection() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
-                      className="relative z-30 shadow-card"
+                      className="relative z-50 shadow-card"
                     />
                   </div>
                   <Button 
                     type="submit" 
                     size="lg" 
                     disabled={isLoading}
-                    className="relative z-30 w-full shadow-elegant disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="relative z-50 w-full shadow-elegant disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {isLoading ? "Joining..." : "Join the Waitlist"}
+                    <span className="relative z-50">
+                      {isLoading ? "Joining..." : "Join the Waitlist"}
+                    </span>
                   </Button>
                 </form>
               ) : (
-                <div className="relative z-30 bg-secondary/50 p-6 rounded-lg border border-primary/20">
+                <div className="relative z-50 bg-secondary/50 p-6 rounded-lg border border-primary/20">
                   <div className="flex items-center gap-3">
                     <CheckCircle className="h-6 w-6 text-primary" />
-                    <div>
-                      <h3 className="font-semibold">You're on the list!</h3>
-                      <p className="text-sm text-muted-foreground">
+                    <div className="relative z-50">
+                      <h3 className="relative z-50 font-semibold">You're on the list!</h3>
+                      <p className="relative z-50 text-sm text-muted-foreground">
                         We'll notify you when MacTrack launches.
                       </p>
                     </div>
@@ -180,36 +185,36 @@ export function HeroSection() {
           </div>
 
           {/* Illustration - keep it below text but above backgrounds */}
-          <div className="relative z-20 animate-fade-in">
+          <div className="relative z-40 animate-fade-in">
             <div className="bg-gradient-card rounded-2xl p-8 shadow-elegant">
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
-                  <h3 className="relative z-20 text-lg font-semibold">Today's Schedule</h3>
+                  <h3 className="relative z-50 text-lg font-semibold">Today's Schedule</h3>
                   <div className="h-2 w-2 bg-primary rounded-full animate-pulse"></div>
                 </div>
                 
                 <div className="space-y-4">
-                  <div className="relative z-20 flex items-center gap-3 p-3 bg-primary/10 rounded-lg">
+                  <div className="relative z-50 flex items-center gap-3 p-3 bg-primary/10 rounded-lg">
                     <div className="h-3 w-3 bg-primary rounded-full"></div>
                     <div className="flex-1">
-                      <p className="font-medium text-sm">COMP1010 Lecture</p>
-                      <p className="text-xs text-muted-foreground">9:00 AM - 11:00 AM</p>
+                      <p className="relative z-50 font-medium text-sm">COMP1010 Lecture</p>
+                      <p className="relative z-50 text-xs text-muted-foreground">9:00 AM - 11:00 AM</p>
                     </div>
                   </div>
                   
-                  <div className="relative z-20 flex items-center gap-3 p-3 bg-accent/10 rounded-lg">
+                  <div className="relative z-50 flex items-center gap-3 p-3 bg-accent/10 rounded-lg">
                     <div className="h-3 w-3 bg-accent rounded-full"></div>
                     <div className="flex-1">
-                      <p className="font-medium text-sm">Assignment Due</p>
-                      <p className="text-xs text-muted-foreground">Database Project</p>
+                      <p className="relative z-50 font-medium text-sm">Assignment Due</p>
+                      <p className="relative z-50 text-xs text-muted-foreground">Database Project</p>
                     </div>
                   </div>
                   
-                  <div className="relative z-20 flex items-center gap-3 p-3 bg-secondary rounded-lg">
+                  <div className="relative z-50 flex items-center gap-3 p-3 bg-secondary rounded-lg">
                     <div className="h-3 w-3 bg-muted-foreground rounded-full"></div>
                     <div className="flex-1">
-                      <p className="font-medium text-sm">Study Group</p>
-                      <p className="text-xs text-muted-foreground">3:00 PM - Library</p>
+                      <p className="relative z-50 font-medium text-sm">Study Group</p>
+                      <p className="relative z-50 text-xs text-muted-foreground">3:00 PM - Library</p>
                     </div>
                   </div>
                 </div>
