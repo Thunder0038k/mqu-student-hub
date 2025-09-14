@@ -28,7 +28,7 @@ export function FeaturesSection() {
         <div className="text-center space-y-4 mb-16 animate-fade-in-up">
           <h2 className="text-3xl md:text-4xl font-bold">
             Everything you need to{" "}
-            <span className="gradient-hero bg-clip-text text-transparent">
+            <span className="text-red-600 font-bold">
               excel at MQ
             </span>
           </h2>
