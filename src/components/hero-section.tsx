@@ -94,25 +94,25 @@ export function HeroSection() {
       
       <div className="container relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Content */}
-          <div className="space-y-8 animate-fade-in-up">
+          {/* Content - ensure all text is above backgrounds */}
+          <div className="relative z-30 space-y-8 animate-fade-in-up">
             <div className="space-y-4">
-              {/* Headline elevated above illustration with z-20 */}
-              <h1 className="relative z-20 text-4xl md:text-6xl font-bold leading-tight break-words">
+              {/* Headline elevated above everything */}
+              <h1 className="relative z-40 text-4xl md:text-6xl font-bold leading-tight break-words">
                 MacTrack –{" "}
-                <span className="inline-block gradient-hero bg-clip-text text-transparent whitespace-normal">
+                <span className="relative z-40 inline-block gradient-hero bg-clip-text text-transparent whitespace-normal">
                   Your All-in-One
                 </span>{" "}
                 Student Dashboard
               </h1>
-              <p className="text-xl text-muted-foreground max-w-xl">
+              <p className="relative z-30 text-xl text-muted-foreground max-w-xl">
                 Stay on top of assignments, classes, and grades at Macquarie University. 
                 The smartest way to manage your student life.
               </p>
             </div>
 
-            {/* Quick Features */}
-            <div className="flex flex-wrap gap-4">
+            {/* Quick Features - also elevated */}
+            <div className="relative z-30 flex flex-wrap gap-4">
               <div className="flex items-center gap-2 text-sm bg-secondary/50 px-3 py-2 rounded-full">
                 <CheckCircle className="h-4 w-4 text-primary" />
                 Never miss deadlines
@@ -127,23 +127,23 @@ export function HeroSection() {
               </div>
             </div>
 
-            {/* Email Form */}
-            <div className="max-w-md">
+            {/* Email Form - elevated above backgrounds */}
+            <div className="relative z-30 max-w-md">
               {!isSubmitted ? (
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="name">Name</Label>
+                    <Label htmlFor="name" className="relative z-30">Name</Label>
                     <Input
                       id="name"
                       placeholder="Your name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       required
-                      className="shadow-card"
+                      className="relative z-30 shadow-card"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
+                    <Label htmlFor="email" className="relative z-30">Email</Label>
                     <Input
                       id="email"
                       type="email"
@@ -151,20 +151,20 @@ export function HeroSection() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
-                      className="shadow-card"
+                      className="relative z-30 shadow-card"
                     />
                   </div>
                   <Button 
                     type="submit" 
                     size="lg" 
                     disabled={isLoading}
-                    className="w-full shadow-elegant disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="relative z-30 w-full shadow-elegant disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isLoading ? "Joining..." : "Join the Waitlist"}
                   </Button>
                 </form>
               ) : (
-                <div className="bg-secondary/50 p-6 rounded-lg border border-primary/20">
+                <div className="relative z-30 bg-secondary/50 p-6 rounded-lg border border-primary/20">
                   <div className="flex items-center gap-3">
                     <CheckCircle className="h-6 w-6 text-primary" />
                     <div>
@@ -179,17 +179,17 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* Illustration - keep it behind the headline but above backgrounds */}
-          <div className="relative z-10 animate-fade-in">
+          {/* Illustration - keep it below text but above backgrounds */}
+          <div className="relative z-20 animate-fade-in">
             <div className="bg-gradient-card rounded-2xl p-8 shadow-elegant">
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-semibold">Today's Schedule</h3>
+                  <h3 className="relative z-20 text-lg font-semibold">Today's Schedule</h3>
                   <div className="h-2 w-2 bg-primary rounded-full animate-pulse"></div>
                 </div>
                 
                 <div className="space-y-4">
-                  <div className="flex items-center gap-3 p-3 bg-primary/10 rounded-lg">
+                  <div className="relative z-20 flex items-center gap-3 p-3 bg-primary/10 rounded-lg">
                     <div className="h-3 w-3 bg-primary rounded-full"></div>
                     <div className="flex-1">
                       <p className="font-medium text-sm">COMP1010 Lecture</p>
@@ -197,7 +197,7 @@ export function HeroSection() {
                     </div>
                   </div>
                   
-                  <div className="flex items-center gap-3 p-3 bg-accent/10 rounded-lg">
+                  <div className="relative z-20 flex items-center gap-3 p-3 bg-accent/10 rounded-lg">
                     <div className="h-3 w-3 bg-accent rounded-full"></div>
                     <div className="flex-1">
                       <p className="font-medium text-sm">Assignment Due</p>
@@ -205,7 +205,7 @@ export function HeroSection() {
                     </div>
                   </div>
                   
-                  <div className="flex items-center gap-3 p-3 bg-secondary rounded-lg">
+                  <div className="relative z-20 flex items-center gap-3 p-3 bg-secondary rounded-lg">
                     <div className="h-3 w-3 bg-muted-foreground rounded-full"></div>
                     <div className="flex-1">
                       <p className="font-medium text-sm">Study Group</p>
