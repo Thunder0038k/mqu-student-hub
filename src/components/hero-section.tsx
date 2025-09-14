@@ -100,7 +100,7 @@ export function HeroSection() {
               {/* Headline elevated above everything */}
               <h1 className="relative z-40 text-4xl md:text-6xl font-bold leading-tight break-words">
                 MacTrack –{" "}
-                <span className="relative z-40 inline-block gradient-hero bg-clip-text text-transparent whitespace-normal">
+                <span className="relative z-50 bg-gradient-to-r from-[hsl(352,54%,30%)] to-[hsl(352,100%,42%)] bg-clip-text text-transparent">
                   Your All-in-One
                 </span>{" "}
                 Student Dashboard
