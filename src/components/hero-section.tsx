@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label"
 import { CheckCircle, BookOpen, Users } from "lucide-react"
 import { supabase } from "@/integrations/supabase/client"
 import { useToast } from "@/hooks/use-toast"
-
+import os
 export function HeroSection() {
   const [email, setEmail] = useState("")
   const [name, setName] = useState("")
@@ -87,8 +87,7 @@ export function HeroSection() {
 
   return (
     <section className="relative py-20 md:py-32 overflow-hidden">
-      {/* Background Elements: push behind with negative z */}
-      <div className="absolute inset-0 gradient-hero opacity-5 -z-10"></div>
+      {/* Background Elements: REMOVED the problematic gradient-hero class */}
       <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl -z-10"></div>
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl -z-10"></div>
       
@@ -225,4 +224,3 @@ export function HeroSection() {
       </div> 
     </section>
   )
-}
