@@ -18,22 +18,55 @@ export function HeroSection() {
     setIsLoading(true)
 
     try {
+      // Basic validation
+      const emailTrim = email.trim().toLowerCase()
+      const nameTrim = name.trim()
+
+      if (!emailTrim || !nameTrim) {
+        toast({
+          title: "Validation Error",
+          description: "Please fill in all fields.",
+          variant: "destructive"
+        })
+        return
+      }
+
+      // Basic email format validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      if (!emailRegex.test(emailTrim)) {
+        toast({
+          title: "Invalid Email",
+          description: "Please enter a valid email address.",
+          variant: "destructive"
+        })
+        return
+      }
+
       const { error } = await supabase
         .from('email_signups')
         .insert([
           {
-            name: name.trim(),
-            email: email.trim(),
-            source: 'hero'
+            name: nameTrim,
+            email: emailTrim,
+            source: 'hero-form'
           }
         ])
 
       if (error) {
-        toast({
-          title: "Error",
-          description: "Failed to join waitlist. Please try again.",
-          variant: "destructive"
-        })
+        // Handle duplicate email error specifically
+        if (error.code === '23505' && error.message.includes('unique_email')) {
+          toast({
+            title: "Already Registered",
+            description: "This email is already on our waitlist!",
+            variant: "destructive"
+          })
+        } else {
+          toast({
+            title: "Error",
+            description: "Failed to join waitlist. Please try again.",
+            variant: "destructive"
+          })
+        }
       } else {
         setIsSubmitted(true)
         toast({
