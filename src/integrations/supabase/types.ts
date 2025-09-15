@@ -38,6 +38,48 @@ export type Database = {
         }
         Relationships: []
       }
+      user_profiles: {
+        Row: {
+          created_at: string
+          degree: string | null
+          gender: string | null
+          id: string
+          major: string | null
+          onboarding_completed: boolean | null
+          session: number | null
+          units: Json | null
+          updated_at: string
+          user_id: string
+          year: number | null
+        }
+        Insert: {
+          created_at?: string
+          degree?: string | null
+          gender?: string | null
+          id?: string
+          major?: string | null
+          onboarding_completed?: boolean | null
+          session?: number | null
+          units?: Json | null
+          updated_at?: string
+          user_id: string
+          year?: number | null
+        }
+        Update: {
+          created_at?: string
+          degree?: string | null
+          gender?: string | null
+          id?: string
+          major?: string | null
+          onboarding_completed?: boolean | null
+          session?: number | null
+          units?: Json | null
+          updated_at?: string
+          user_id?: string
+          year?: number | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
