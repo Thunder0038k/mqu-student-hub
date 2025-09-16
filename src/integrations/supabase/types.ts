@@ -112,6 +112,10 @@ export type Database = {
         Args: { user_email: string }
         Returns: boolean
       }
+      get_current_user_admin_status: {
+        Args: Record<PropertyKey, never>
+        Returns: boolean
+      }
     }
     Enums: {
       [_ in never]: never

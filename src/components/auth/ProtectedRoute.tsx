@@ -47,11 +47,11 @@ export default function ProtectedRoute({
                 .from('profiles')
                 .select('*')
                 .eq('id', session.user.id)
-                .single();
+                .maybeSingle();
 
               console.log('Profile fetch result:', { profileData, error });
 
-              if (error && error.code !== 'PGRST116') {
+              if (error) {
                 console.error('Error fetching profile:', error);
                 toast({
                   title: "Error loading profile",
@@ -63,7 +63,33 @@ export default function ProtectedRoute({
                 return;
               }
 
-              setProfile(profileData);
+              // If no profile exists, create one automatically
+              if (!profileData) {
+                console.log('No profile found, creating one...');
+                try {
+                  const { data: newProfile, error: createError } = await supabase
+                    .from('profiles')
+                    .insert({
+                      id: session.user.id,
+                      full_name: session.user.user_metadata?.full_name || session.user.email?.split('@')[0] || 'User'
+                    })
+                    .select()
+                    .single();
+                    
+                  if (createError) {
+                    console.error('Error creating profile:', createError);
+                    setProfile(null);
+                  } else {
+                    console.log('Profile created:', newProfile);
+                    setProfile(newProfile);
+                  }
+                } catch (createError) {
+                  console.error('Error creating profile:', createError);
+                  setProfile(null);
+                }
+              } else {
+                setProfile(profileData);
+              }
             } catch (error) {
               console.error('Error fetching profile:', error);
               setProfile(null);
@@ -101,16 +127,40 @@ export default function ProtectedRoute({
               .from('profiles')
               .select('*')
               .eq('id', session.user.id)
-              .single();
+              .maybeSingle();
 
-            if (error && error.code !== 'PGRST116') {
+            if (error) {
               console.error('Error fetching profile:', error);
               setProfile(null);
               setIsLoading(false);
               return;
             }
 
-            setProfile(profileData);
+            // If no profile exists, create one automatically
+            if (!profileData) {
+              try {
+                const { data: newProfile, error: createError } = await supabase
+                  .from('profiles')
+                  .insert({
+                    id: session.user.id,
+                    full_name: session.user.user_metadata?.full_name || session.user.email?.split('@')[0] || 'User'
+                  })
+                  .select()
+                  .single();
+                  
+                if (createError) {
+                  console.error('Error creating profile:', createError);
+                  setProfile(null);
+                } else {
+                  setProfile(newProfile);
+                }
+              } catch (createError) {
+                console.error('Error creating profile:', createError);
+                setProfile(null);
+              }
+            } else {
+              setProfile(profileData);
+            }
           } catch (error) {
             console.error('Error fetching profile:', error);
             setProfile(null);
