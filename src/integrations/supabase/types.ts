@@ -38,47 +38,70 @@ export type Database = {
         }
         Relationships: []
       }
-      user_profiles: {
+      profiles: {
         Row: {
-          created_at: string
+          created_at: string | null
           degree: string | null
+          full_name: string | null
           gender: string | null
           id: string
-          major: string | null
-          onboarding_completed: boolean | null
+          is_admin: boolean | null
           session: number | null
-          units: Json | null
-          updated_at: string
-          user_id: string
           year: number | null
         }
         Insert: {
-          created_at?: string
+          created_at?: string | null
           degree?: string | null
+          full_name?: string | null
           gender?: string | null
-          id?: string
-          major?: string | null
-          onboarding_completed?: boolean | null
+          id: string
+          is_admin?: boolean | null
           session?: number | null
-          units?: Json | null
-          updated_at?: string
-          user_id: string
           year?: number | null
         }
         Update: {
-          created_at?: string
+          created_at?: string | null
           degree?: string | null
+          full_name?: string | null
           gender?: string | null
           id?: string
-          major?: string | null
-          onboarding_completed?: boolean | null
+          is_admin?: boolean | null
           session?: number | null
-          units?: Json | null
-          updated_at?: string
-          user_id?: string
           year?: number | null
         }
         Relationships: []
+      }
+      units: {
+        Row: {
+          created_at: string | null
+          id: string
+          unit_code: string
+          unit_name: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          unit_code: string
+          unit_name: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          unit_code?: string
+          unit_name?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "units_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
