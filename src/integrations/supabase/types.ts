@@ -14,6 +14,109 @@ export type Database = {
   }
   public: {
     Tables: {
+      assignments: {
+        Row: {
+          created_at: string
+          description: string | null
+          due_date: string
+          id: string
+          priority: string | null
+          status: string
+          title: string
+          unit_id: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          due_date: string
+          id?: string
+          priority?: string | null
+          status?: string
+          title: string
+          unit_id?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          due_date?: string
+          id?: string
+          priority?: string | null
+          status?: string
+          title?: string
+          unit_id?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "assignments_unit_id_fkey"
+            columns: ["unit_id"]
+            isOneToOne: false
+            referencedRelation: "units"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      calendar_events: {
+        Row: {
+          created_at: string
+          description: string | null
+          end_time: string
+          event_type: string | null
+          id: string
+          is_recurring: boolean | null
+          location: string | null
+          recurrence_pattern: string | null
+          start_time: string
+          title: string
+          unit_id: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          end_time: string
+          event_type?: string | null
+          id?: string
+          is_recurring?: boolean | null
+          location?: string | null
+          recurrence_pattern?: string | null
+          start_time: string
+          title: string
+          unit_id?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          end_time?: string
+          event_type?: string | null
+          id?: string
+          is_recurring?: boolean | null
+          location?: string | null
+          recurrence_pattern?: string | null
+          start_time?: string
+          title?: string
+          unit_id?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "calendar_events_unit_id_fkey"
+            columns: ["unit_id"]
+            isOneToOne: false
+            referencedRelation: "units"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       email_signups: {
         Row: {
           created_at: string
@@ -77,6 +180,8 @@ export type Database = {
           id: string
           unit_code: string
           unit_name: string
+          unit_number: string | null
+          unit_prefix: string | null
           user_id: string | null
         }
         Insert: {
@@ -84,6 +189,8 @@ export type Database = {
           id?: string
           unit_code: string
           unit_name: string
+          unit_number?: string | null
+          unit_prefix?: string | null
           user_id?: string | null
         }
         Update: {
@@ -91,6 +198,8 @@ export type Database = {
           id?: string
           unit_code?: string
           unit_name?: string
+          unit_number?: string | null
+          unit_prefix?: string | null
           user_id?: string | null
         }
         Relationships: [

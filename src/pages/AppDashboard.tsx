@@ -6,10 +6,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Plus, BookOpen, LogOut, Settings } from "lucide-react";
+import { Plus, BookOpen, LogOut, Settings, Calendar, CheckSquare } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import macquarieLogo from "@/assets/macquarie-logo.png";
 import type { User } from '@supabase/supabase-js';
+import { CalendarSetup } from "@/components/dashboard/calendar-setup";
+import { AssignmentSetup } from "@/components/dashboard/assignments-setup";
 
 interface Profile {
   id: string;
@@ -25,6 +27,8 @@ interface Unit {
   id: string;
   unit_code: string;
   unit_name: string;
+  unit_prefix?: string;
+  unit_number?: string;
 }
 
 interface AppDashboardProps {
@@ -40,6 +44,8 @@ export default function AppDashboard({ user, profile, onProfileUpdate }: AppDash
   const [isEditingProfile, setIsEditingProfile] = useState(false);
   const [editedProfile, setEditedProfile] = useState(profile);
   const [isLoading, setIsLoading] = useState(false);
+  const [showCalendarSetup, setShowCalendarSetup] = useState(false);
+  const [showAssignmentSetup, setShowAssignmentSetup] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -74,12 +80,19 @@ export default function AppDashboard({ user, profile, onProfileUpdate }: AppDash
       return;
     }
 
+    // Extract prefix and number from unit code (e.g., MATH1007 -> MATH, 1007)
+    const unitCodeUpper = newUnitCode.trim().toUpperCase();
+    const unitPrefix = unitCodeUpper.replace(/[0-9]+$/, '');
+    const unitNumber = unitCodeUpper.replace(/^[A-Za-z]+/, '');
+
     try {
       const { data, error } = await supabase
         .from('units')
         .insert([{
           user_id: user.id,
-          unit_code: newUnitCode.trim().toUpperCase(),
+          unit_code: unitCodeUpper,
+          unit_prefix: unitPrefix,
+          unit_number: unitNumber,
           unit_name: newUnitName.trim()
         }])
         .select()
@@ -190,6 +203,27 @@ export default function AppDashboard({ user, profile, onProfileUpdate }: AppDash
             Here's your MacTrack dashboard. Manage your units and track your progress.
           </p>
         </div>
+
+        {/* Setup Forms */}
+        {showCalendarSetup && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+            <CalendarSetup 
+              units={units} 
+              userId={user.id}
+              onClose={() => setShowCalendarSetup(false)}
+            />
+          </div>
+        )}
+
+        {showAssignmentSetup && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+            <AssignmentSetup 
+              units={units} 
+              userId={user.id}
+              onClose={() => setShowAssignmentSetup(false)}
+            />
+          </div>
+        )}
 
         <div className="grid gap-6 lg:grid-cols-3">
           {/* Profile Card */}
@@ -359,22 +393,29 @@ export default function AppDashboard({ user, profile, onProfileUpdate }: AppDash
               </CardHeader>
               <CardContent className="space-y-4">
                 {/* Add Unit Form */}
-                <div className="flex gap-2">
-                  <Input
-                    placeholder="Unit Code (e.g. COMP1010)"
-                    value={newUnitCode}
-                    onChange={(e) => setNewUnitCode(e.target.value)}
-                    className="flex-1"
-                  />
-                  <Input
-                    placeholder="Unit Name"
-                    value={newUnitName}
-                    onChange={(e) => setNewUnitName(e.target.value)}
-                    className="flex-2"
-                  />
-                  <Button onClick={addUnit} size="sm">
-                    <Plus className="h-4 w-4" />
-                  </Button>
+                <div className="space-y-2">
+                  <div className="flex gap-2">
+                    <Input
+                      placeholder="Unit Code (e.g. MATH1007)"
+                      value={newUnitCode}
+                      onChange={(e) => setNewUnitCode(e.target.value)}
+                      className="flex-1 bg-background"
+                    />
+                    <Input
+                      placeholder="Unit Name"
+                      value={newUnitName}
+                      onChange={(e) => setNewUnitName(e.target.value)}
+                      className="flex-2 bg-background"
+                    />
+                    <Button onClick={addUnit} size="sm">
+                      <Plus className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  {(newUnitCode || newUnitName) && (
+                    <div className="text-xs text-muted-foreground p-2 bg-muted/50 rounded">
+                      Preview: {newUnitCode} - {newUnitName}
+                    </div>
+                  )}
                 </div>
 
                 <Separator />
@@ -388,9 +429,38 @@ export default function AppDashboard({ user, profile, onProfileUpdate }: AppDash
                   ) : (
                     units.map((unit) => (
                       <div key={unit.id} className="flex items-center justify-between p-3 border rounded-md">
-                        <div>
-                          <p className="font-medium">{unit.unit_code}</p>
-                          <p className="text-sm text-muted-foreground">{unit.unit_name}</p>
+                        <div className="flex items-center gap-4">
+                          <div className="flex items-center gap-2">
+                            <span className="text-sm font-mono bg-muted px-2 py-1 rounded">
+                              {unit.unit_prefix || unit.unit_code.replace(/[0-9]+$/, '')}
+                            </span>
+                            <span className="text-sm font-mono bg-primary/10 text-primary px-2 py-1 rounded">
+                              {unit.unit_number || unit.unit_code.replace(/^[A-Za-z]+/, '')}
+                            </span>
+                          </div>
+                          <div>
+                            <p className="font-medium">{unit.unit_name}</p>
+                          </div>
+                        </div>
+                        <div className="flex gap-2">
+                          <Button 
+                            variant="ghost" 
+                            size="sm" 
+                            className="text-xs"
+                            onClick={() => setShowCalendarSetup(true)}
+                          >
+                            <Calendar className="h-3 w-3 mr-1" />
+                            Calendar
+                          </Button>
+                          <Button 
+                            variant="ghost" 
+                            size="sm" 
+                            className="text-xs"
+                            onClick={() => setShowAssignmentSetup(true)}
+                          >
+                            <CheckSquare className="h-3 w-3 mr-1" />
+                            Assignments
+                          </Button>
                         </div>
                       </div>
                     ))
