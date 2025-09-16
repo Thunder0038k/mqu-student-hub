@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_audit_log: {
+        Row: {
+          action: string
+          admin_user_id: string | null
+          created_at: string | null
+          id: string
+          new_value: Json | null
+          old_value: Json | null
+          target_user_id: string | null
+        }
+        Insert: {
+          action: string
+          admin_user_id?: string | null
+          created_at?: string | null
+          id?: string
+          new_value?: Json | null
+          old_value?: Json | null
+          target_user_id?: string | null
+        }
+        Update: {
+          action?: string
+          admin_user_id?: string | null
+          created_at?: string | null
+          id?: string
+          new_value?: Json | null
+          old_value?: Json | null
+          target_user_id?: string | null
+        }
+        Relationships: []
+      }
       assignments: {
         Row: {
           created_at: string
@@ -217,6 +247,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      assign_admin_role: {
+        Args: { make_admin: boolean; target_user_id: string }
+        Returns: boolean
+      }
       check_signup_rate_limit: {
         Args: { user_email: string }
         Returns: boolean
