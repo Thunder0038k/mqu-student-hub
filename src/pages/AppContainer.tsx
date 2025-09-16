@@ -55,42 +55,72 @@ export default function AppContainer() {
 
   return (
     <ProtectedRoute>
-      {(user: User, session: Session) => {
-        // Fetch profile when user changes
-        useEffect(() => {
-          if (user.id) {
-            fetchProfile(user.id);
-          }
-        }, [user.id]);
-
-        if (isLoadingProfile) {
-          return (
-            <div className="min-h-screen bg-background flex items-center justify-center">
-              <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
-            </div>
-          );
-        }
-
-        if (needsProfileSetup || !profile) {
-          return (
-            <ProfileSetup 
-              user={user} 
-              onComplete={() => {
-                handleProfileComplete();
-                fetchProfile(user.id); // Refetch profile after completion
-              }} 
-            />
-          );
-        }
-
-        return (
-          <AppDashboard 
-            user={user} 
-            profile={profile}
-            onProfileUpdate={handleProfileUpdate}
-          />
-        );
-      }}
+      {(user: User, session: Session) => (
+        <AppContent
+          user={user}
+          profile={profile}
+          needsProfileSetup={needsProfileSetup}
+          isLoadingProfile={isLoadingProfile}
+          onProfileComplete={handleProfileComplete}
+          onProfileUpdate={handleProfileUpdate}
+          fetchProfile={fetchProfile}
+        />
+      )}
     </ProtectedRoute>
+  );
+}
+
+interface AppContentProps {
+  user: User;
+  profile: Profile | null;
+  needsProfileSetup: boolean;
+  isLoadingProfile: boolean;
+  onProfileComplete: () => void;
+  onProfileUpdate: (profile: Profile) => void;
+  fetchProfile: (userId: string) => void;
+}
+
+function AppContent({ 
+  user, 
+  profile, 
+  needsProfileSetup, 
+  isLoadingProfile, 
+  onProfileComplete, 
+  onProfileUpdate, 
+  fetchProfile 
+}: AppContentProps) {
+  // Fetch profile when user changes
+  useEffect(() => {
+    if (user.id) {
+      fetchProfile(user.id);
+    }
+  }, [user.id, fetchProfile]);
+
+  if (isLoadingProfile) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+
+  if (needsProfileSetup || !profile) {
+    return (
+      <ProfileSetup 
+        user={user} 
+        onComplete={() => {
+          onProfileComplete();
+          fetchProfile(user.id); // Refetch profile after completion
+        }} 
+      />
+    );
+  }
+
+  return (
+    <AppDashboard 
+      user={user} 
+      profile={profile}
+      onProfileUpdate={onProfileUpdate}
+    />
   );
 }
