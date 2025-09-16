@@ -33,7 +33,8 @@ export default function ProtectedRoute({
   useEffect(() => {
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
+      (event, session) => {
+        console.log('Auth state change:', event, 'Session:', !!session, 'User:', !!session?.user);
         setSession(session);
         setUser(session?.user ?? null);
         
@@ -41,11 +42,14 @@ export default function ProtectedRoute({
           // Fetch user profile
           setTimeout(async () => {
             try {
+              console.log('Fetching profile for user:', session.user.id);
               const { data: profileData, error } = await supabase
                 .from('profiles')
                 .select('*')
                 .eq('id', session.user.id)
                 .single();
+
+              console.log('Profile fetch result:', { profileData, error });
 
               if (error && error.code !== 'PGRST116') {
                 console.error('Error fetching profile:', error);
@@ -64,10 +68,12 @@ export default function ProtectedRoute({
               console.error('Error fetching profile:', error);
               setProfile(null);
             } finally {
+              console.log('Setting loading to false');
               setIsLoading(false);
             }
           }, 100);
         } else {
+          console.log('No session, setting loading to false');
           setProfile(null);
           setIsLoading(false);
         }
@@ -83,6 +89,7 @@ export default function ProtectedRoute({
 
     // Check for existing session
     supabase.auth.getSession().then(({ data: { session } }) => {
+      console.log('Initial session check:', !!session);
       setSession(session);
       setUser(session?.user ?? null);
       
