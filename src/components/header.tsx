@@ -1,4 +1,5 @@
 import { ThemeToggle } from "./theme-toggle"
+import { Button } from "./ui/button"
 import macquarieLogo from "@/assets/macquarie-logo.png"
 
 export function Header() {
@@ -9,7 +10,12 @@ export function Header() {
           <img src={macquarieLogo} alt="Macquarie University" className="h-8 w-8" />
           <span className="text-xl font-bold">MacTrack</span>
         </div>
-        <ThemeToggle />
+        <div className="flex items-center space-x-4">
+          <Button asChild variant="outline">
+            <a href="/auth">Sign In</a>
+          </Button>
+          <ThemeToggle />
+        </div>
       </div>
     </header>
   )

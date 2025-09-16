@@ -54,12 +54,15 @@ export default function ProtectedRoute({
                   description: error.message,
                   variant: "destructive",
                 });
+                setProfile(null);
+                setIsLoading(false);
                 return;
               }
 
               setProfile(profileData);
             } catch (error) {
               console.error('Error fetching profile:', error);
+              setProfile(null);
             } finally {
               setIsLoading(false);
             }
@@ -95,11 +98,15 @@ export default function ProtectedRoute({
 
             if (error && error.code !== 'PGRST116') {
               console.error('Error fetching profile:', error);
+              setProfile(null);
+              setIsLoading(false);
+              return;
             }
 
             setProfile(profileData);
           } catch (error) {
             console.error('Error fetching profile:', error);
+            setProfile(null);
           } finally {
             setIsLoading(false);
           }
