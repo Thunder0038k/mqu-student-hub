@@ -4,7 +4,7 @@ import { useToast } from "@/hooks/use-toast";
 import type { User, Session } from '@supabase/supabase-js';
 
 interface ProtectedRouteProps {
-  children: (user: User, session: Session) => ReactNode;
+  children: (user: User, session: Session, profile: Profile | null, isLoadingProfile: boolean) => ReactNode;
   fallback?: ReactNode;
   requireAdmin?: boolean;
 }
@@ -186,13 +186,13 @@ export default function ProtectedRoute({
   }
 
   // Not authenticated
-  if (!session || !user || !profile) {
+  if (!session || !user) {
     return fallback || (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
           <h2 className="text-2xl font-bold mb-4">Authentication Required</h2>
           <p className="text-muted-foreground mb-4">Please sign in to access this page.</p>
-          <a href="/" className="text-primary hover:underline">
+          <a href="/auth" className="text-primary hover:underline">
             Go to Login
           </a>
         </div>
@@ -200,8 +200,8 @@ export default function ProtectedRoute({
     );
   }
 
-  // Admin check
-  if (requireAdmin && !profile.is_admin) {
+  // Admin check (only if profile exists and admin is required)
+  if (requireAdmin && profile && !profile.is_admin) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
@@ -215,5 +215,5 @@ export default function ProtectedRoute({
     );
   }
 
-  return <>{children(user, session)}</>;
+  return <>{children(user, session, profile, isLoading)}</>;
 }
