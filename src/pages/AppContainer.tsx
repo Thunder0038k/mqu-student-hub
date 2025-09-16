@@ -1,7 +1,12 @@
-import AppDashboard from "./AppDashboard";
-import ProfileSetup from "./ProfileSetup";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
-import type { User, Session } from '@supabase/supabase-js';
+import AppLayout from "./AppLayout";
+import AppDashboard from "./AppDashboard";
+import AppCalendar from "./AppCalendar";
+import AppAssignments from "./AppAssignments";
+import ProfileSetup from "./ProfileSetup";
+import type { User } from '@supabase/supabase-js';
 
 interface Profile {
   id: string;
@@ -16,39 +21,44 @@ interface Profile {
 export default function AppContainer() {
   return (
     <ProtectedRoute>
-      {(user: User, session: Session, profile: Profile | null, isLoadingProfile: boolean) => {
+      {(user, session, profile, isLoadingProfile, onProfileUpdate) => {
         // Check if profile needs setup (missing essential info)
         const needsProfileSetup = !profile?.full_name || !profile?.degree || !profile?.year || !profile?.session;
 
-        if (isLoadingProfile) {
-          return (
-            <div className="min-h-screen bg-background flex items-center justify-center">
-              <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
-            </div>
-          );
-        }
-
-        if (needsProfileSetup || !profile) {
+        if (needsProfileSetup) {
           return (
             <ProfileSetup 
               user={user} 
               onComplete={() => {
-                // Force page reload to refresh profile data
                 window.location.reload();
-              }} 
+              }}
             />
           );
         }
 
         return (
-          <AppDashboard 
-            user={user} 
-            profile={profile}
-            onProfileUpdate={(updatedProfile: Profile) => {
-              // Handle profile updates if needed
-              console.log('Profile updated:', updatedProfile);
-            }}
-          />
+          <AppLayout user={user} profile={profile}>
+            <Routes>
+              <Route 
+                path="/" 
+                element={
+                  <AppDashboard 
+                    user={user} 
+                    profile={profile} 
+                    onProfileUpdate={onProfileUpdate} 
+                  />
+                } 
+              />
+              <Route 
+                path="/calendar" 
+                element={<AppCalendar user={user} />} 
+              />
+              <Route 
+                path="/assignments" 
+                element={<AppAssignments user={user} />} 
+              />
+            </Routes>
+          </AppLayout>
         );
       }}
     </ProtectedRoute>
