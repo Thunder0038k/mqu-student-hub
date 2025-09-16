@@ -21,7 +21,7 @@ interface Profile {
 export default function AppContainer() {
   return (
     <ProtectedRoute>
-      {(user, session, profile, isLoadingProfile, onProfileUpdate) => {
+      {(user, session, profile, isLoadingProfile) => {
         // Check if profile needs setup (missing essential info)
         const needsProfileSetup = !profile?.full_name || !profile?.degree || !profile?.year || !profile?.session;
 
@@ -36,6 +36,12 @@ export default function AppContainer() {
           );
         }
 
+        const handleProfileUpdate = (updatedProfile: Profile) => {
+          // Handle profile updates if needed
+          console.log('Profile updated:', updatedProfile);
+          // Could trigger a refetch or update local state
+        };
+
         return (
           <AppLayout user={user} profile={profile}>
             <Routes>
@@ -45,7 +51,7 @@ export default function AppContainer() {
                   <AppDashboard 
                     user={user} 
                     profile={profile} 
-                    onProfileUpdate={onProfileUpdate} 
+                    onProfileUpdate={handleProfileUpdate} 
                   />
                 } 
               />
